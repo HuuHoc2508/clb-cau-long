@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLB Cầu Lông - THPT Hùng Vương</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #00c3ff;
+            --primary-dark: #0099cc;
+            --secondary: #0d47a1;
+            --secondary-dark: #06152d;
+            --accent: #ff9800;
+            --accent-hover: #ff7b00;
+            --bg-light: #f4f9ff;
+            --text-main: #333;
+            --text-light: #666;
+            --white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .header.scrolled {
+            padding: 10px 8%;
+            background: rgba(13, 71, 161, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .header.scrolled .logo,
+        .header.scrolled .nav-links a {
+            color: var(--white);
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary) !important;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 28px;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .header.scrolled .menu-btn {
+            color: var(--white);
+        }
+
+        /* ===== BANNER ===== */
+        .banner {
+            height: 100vh;
+            background:
+                linear-gradient(135deg, rgba(13, 71, 161, 0.8), rgba(0, 195, 255, 0.5)),
+                url("https://i.postimg.cc/HWqB3S3m/2d02b252-2141-4b37-8719-92781ffc6ae9.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 0 20px;
+            color: var(--white);
+            position: relative;
+        }
+
+        .banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15vh;
+            background: linear-gradient(to top, var(--bg-light), transparent);
+        }
+
+        .hero-content {
+            z-index: 2;
+            animation: fadeInDown 1s ease-out forwards;
+            max-width: 800px;
+        }
+
+        .banner h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .banner h1 span {
+            color: var(--primary);
+            display: block;
+        }
+
+        .banner p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            opacity: 0.9;
+            text-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn {
+            padding: 16px 45px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 10px 25px rgba(0, 195, 255, 0.4);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 195, 255, 0.6);
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        .section {
+            padding: 100px 8%;
+            text-align: center;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--secondary);
+            font-weight: 800;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: var(--primary);
+            bottom: -15px;
+            left: 20%;
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            margin-top: 25px;
+            font-size: 1.1rem;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        /* ===== CORE VALUES ===== */
+        .values-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .value-box {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .value-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transition: var(--transition);
+            z-index: -1;
+            border-radius: 20px;
+        }
+
+        .value-box:hover::before {
+            height: 100%;
+        }
+
+        .value-box:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 45px rgba(13, 71, 161, 0.2);
+        }
+
+        .value-box h3,
+        .value-box p,
+        .value-box .icon {
+            transition: var(--transition);
+        }
+
+        .value-box:hover h3,
+        .value-box:hover p,
+        .value-box:hover .icon {
+            color: var(--white);
+        }
+
+        .value-box .icon {
+            font-size: 55px;
+            color: var(--primary);
+            margin-bottom: 25px;
+        }
+
+        .value-box h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .value-box p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        /* ===== ACTIVITIES GALLERY ===== */
+        .img-hero-container {
+            margin-bottom: 60px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .img-hero-container img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .img-hero-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .img-tag {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(13, 71, 161, 0.85);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+            height: 280px;
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(13, 71, 161, 0.95) 0%, rgba(0, 195, 255, 0.4) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 25px;
+            transition: var(--transition);
+        }
+
+        .gallery-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-card:hover .card-overlay {
+            bottom: 0;
+        }
+
+        .card-overlay h4 {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: 700;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: var(--transition);
+            transition-delay: 0.1s;
+        }
+
+        .gallery-card:hover .card-overlay h4 {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* ===== EVENT SECTION ===== */
+        .event-section {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+            color: var(--white);
+            padding: 80px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            margin: 0 5%;
+            box-shadow: 0 20px 40px rgba(13, 71, 161, 0.3);
+        }
+
+        .event-section::before {
+            content: '\f436';
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            font-size: 350px;
+            color: rgba(255, 255, 255, 0.03);
+            right: -50px;
+            top: -50px;
+            transform: rotate(15deg);
+            z-index: 0;
+        }
+
+        .event-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .countdown-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 25px;
+            border-radius: 15px;
+            min-width: 140px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .time-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .time-box span {
+            display: block;
+        }
+
+        .time-num {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .time-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ddd;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #06152d;
+            color: #ccc;
+            padding: 80px 8% 20px;
+            margin-top: 100px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .foot-col h4 {
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .foot-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .foot-col p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .foot-col p i {
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .socials a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--white);
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .socials a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(0, 195, 255, 0.4);
+        }
+
+        .foot-col ul {
+            list-style: none;
+        }
+
+        .foot-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .foot-col ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .foot-col ul li a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .copyright span {
+            color: var(--primary);
+        }
+
+        /* ===== ROCKET/TO TOP BTN ===== */
+        .to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-8px);
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: var(--white);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(50px) scale(0.9);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
+            color: #999;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: #ff3333;
+            transform: rotate(90deg);
+        }
+
+        .modal-box h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: #fcfcfc;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(0, 195, 255, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            margin-top: 10px;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        /* ===== SCROLL REVEAL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media screen and (max-width: 992px) {
+            .banner h1 {
+                font-size: 3.5rem;
+            }
+
+            .section {
+                padding: 80px 5%;
+            }
+
+            .event-section {
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: -100%;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                gap: 0;
+                padding: 10px 0;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                transition: 0.5s ease-in-out;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links a {
+                padding: 20px 0;
+                display: block;
+                text-align: center;
+                color: var(--text-main) !important;
+                border-bottom: 1px solid #f1f1f1;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .banner h1 {
+                font-size: 2.8rem;
+            }
+
+            .banner p {
+                font-size: 1.2rem;
+            }
+
+            .img-hero-container img {
+                height: 350px;
+            }
+
+            .countdown-wrapper {
+                gap: 15px;
+            }
+
+            .time-box {
+                padding: 15px;
+                min-width: 100px;
+            }
+
+            .time-num {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="header" id="header">
+        <a href="#" class="logo"><i class="fa-solid fa-shuttlecock"></i> THPT Hùng Vương</a>
+
+        <div class="menu-btn" id="menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+
+        <nav class="nav-links" id="nav-links">
+            <a href="#home" class="active">Trang Chủ</a>
+            <a href="#about">Giá Trị</a>
+            <a href="#activities">Hoạt Động</a>
+            <a href="#events">Sự Kiện</a>
+            <a href="#contact">Liên Hệ</a>
+        </nav>
+    </header>
+
+    <!-- BANNER HERO -->
+    <section class="banner" id="home">
+        <div class="hero-content">
+            <h1>CLB CẦU LÔNG <br><span>THPT HÙNG VƯƠNG</span></h1>
+            <p>Khơi dậy niềm đam mê, rèn luyện sức khỏe và cùng nhau tỏa sáng tưng bừng trên sân đấu.</p>
+            <button class="btn" id="join-btn">
+                <i class="fa-solid fa-user-plus"></i> Đăng Ký Tham Gia
+            </button>
+        </div>
+    </section>
+
+    <!-- CORE VALUES -->
+    <section class="section" id="about" style="background-color: var(--white);">
+        <div class="section-header reveal">
+            <h2>Giá Trị Cốt Lõi</h2>
+            <p>Ba yếu tố làm nên tinh thần vững chắc của câu lạc bộ chúng tôi</p>
+        </div>
+
+        <div class="values-container">
+            <div class="value-box reveal delay-1">
+                <i class="fa-solid fa-bolt icon"></i>
+                <h3>Năng Động</h3>
+                <p>Khuyến khích lối sống lành mạnh, tràn đầy năng lượng thông qua quá trình di chuyển linh hoạt và phản
+                    xạ nhạy bén.</p>
+            </div>
+            <div class="value-box reveal delay-2">
+                <i class="fa-solid fa-fire icon"></i>
+                <h3>Đam Mê</h3>
+                <p>Khơi dậy tinh thần nhiệt huyết, cháy hết mình trong từng loạt cầu giao đấu và những cú đập smash đầy
+                    uy lực.</p>
+            </div>
+            <div class="value-box reveal delay-3">
+                <i class="fa-solid fa-trophy icon"></i>
+                <h3>Tỏa Sáng</h3>
+                <p>Tạo điều kiện cọ xát, chinh phục những đấu trường và khẳng định bản lĩnh cá nhân, tinh thần đoàn kết.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACTIVITIES & GALLERY -->
+    <section class="section" id="activities">
+        <div class="section-header reveal">
+            <h2>Hoạt Động Nổi Bật</h2>
+            <p>Những khoảnh khắc đẹp nhất đang diễn ra tại CLB</p>
+        </div>
+
+        <div class="img-hero-container reveal">
+            <img src="https://i.postimg.cc/Hnd4DNNH/z7571359592442-c2ad983ea2c5b4e4250eac0e148d881d.jpg"
+                alt="Thành viên CLB">
+            <div class="img-tag"><i class="fa-solid fa-users"></i> Ban Chủ Nhiệm CLB</div>
+        </div>
+
+        <div class="gallery">
+            <div class="gallery-card reveal">
+                <img src="https://i.postimg.cc/Zn0jgp3Y/z7567682200279-39ba6a2d0570602d215a159ab2258c11.jpg"
+                    alt="Thi đấu đơn nam">
+                <div class="card-overlay">
+                    <h4>Thi Đấu Giao Hữu Mở Rộng</h4>
+                </div>
+            </div>
+            <div class="gallery-card reveal delay-1">
+                <img src="https://i.postimg.cc/ncw70MnF/z7571360587439-aeb7d0526ed26a8ece1aed5f52858164.jpg"
+                    alt="Luyện tập chiến thuật">
+                <div class="card-overlay">
+                    <h4>Huấn Luyện Trọng Tâm</h4>
+                </div>
+            </div>
+            <div class="gallery-card reveal delay-2">
+                <img src="https://i.postimg.cc/NFxhBWjc/z7571364988462-a4b54b8842653352aa1a7aed0deba957.jpg"
+                    alt="Giải đấu nội bộ">
+                <div class="card-overlay">
+                    <h4>Giải Đấu Nội Bộ Thường Kỳ</h4>
+                </div>
+            </div>
+            <div class="gallery-card reveal delay-3">
+                <img src="https://i.postimg.cc/XqsFMYFQ/z7571360593437-416515eff69c230bb06d7acfe56636f8.jpg"
+                    alt="Rèn luyện thể lực">
+                <div class="card-overlay">
+                    <h4>Các Bài Tập Thể Lực Bổ Trợ</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UPCOMING EVENTS (COUNTDOWN) -->
+    <section class="event-section" id="events">
+        <div class="event-content reveal">
+            <h2 class="event-title">Giải Vô Địch Cầu Lông Học Sinh 2026 Sắp Khởi Tranh</h2>
+            <p>Sân chơi lớn nhất năm dành cho các tài năng trẻ. Cùng chuẩn bị và tập luyện ngay hôm nay!</p>
+
+            <div class="countdown-wrapper">
+                <div class="time-box">
+                    <span class="time-num" id="days">00</span>
+                    <span class="time-label">Ngày</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-num" id="hours">00</span>
+                    <span class="time-label">Giờ</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-num" id="minutes">00</span>
+                    <span class="time-label">Phút</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-num" id="seconds">00</span>
+                    <span class="time-label">Giây</span>
+                </div>
+            </div>
+
+            <a href="#about" class="btn">
+                <i class="fa-solid fa-circle-info"></i> Xem Chi Tiết Giải Đấu
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER & CONTACT -->
+    <footer class="footer" id="contact">
+        <div class="footer-grid">
+            <div class="foot-col">
+                <a href="#" class="logo" style="color:var(--white); margin-bottom: 20px;">
+                    <i class="fa-solid fa-shuttlecock"></i> THPT Hùng Vương
+                </a>
+                <p>Sứ mệnh của chúng tôi là tạo nên một cộng đồng học sinh năng động, gắn kết và đạt thành tích cao
+                    trong hoạt động thể chất.</p>
+                <div class="socials">
+                    <a href="links.html" title="Facebook CLB"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="links.html" title="TikTok CLB"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="links.html" title="YouTube CLB"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="foot-col">
+                <h4>Thông Tin Liên Hệ</h4>
+                <p><i class="fa-solid fa-location-dot"></i> Trương Công Định, Phường 3, Sóc Trăng</p>
+                <p><i class="fa-solid fa-phone"></i> 0123 456 789 (Hotline CLB)</p>
+                <p><i class="fa-solid fa-envelope"></i> admin@clbcaulonghungvuong.edu.vn</p>
+                <p><i class="fa-solid fa-clock"></i> Sinh hoạt: Thứ 3 - 5 - 7 (17:30 - 19:30)</p>
+            </div>
+
+            <div class="foot-col">
+                <h4>Liên Kết Nhanh</h4>
+                <ul>
+                    <li><a href="#home">Trang Chủ</a></li>
+                    <li><a href="#about">Giá Trị Của CLB</a></li>
+                    <li><a href="#activities">Hình Ảnh Hoạt Động</a></li>
+                    <li><a href="#events">Sự Kiện & Lịch Thi Đấu</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2026 Bản quyền thuộc về <span>CLB Cầu Lông - THPT Hùng Vương</span>. Được thiết kế với tâm huyết.
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <a href="#home" class="to-top" id="to-top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </a>
+
+    <!-- REGISTRATION MODAL FORM -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-box">
+            <span class="close-modal" id="close-modal"><i class="fa-solid fa-xmark"></i></span>
+            <h3>Đăng Ký Thành Viên</h3>
+            <form id="registration-form">
+                <div class="form-group">
+                    <label class="form-label">Họ và Tên</label>
+                    <input type="text" class="form-input" placeholder="Nhập họ và tên đầy đủ" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Lớp</label>
+                    <input type="text" class="form-input" placeholder="VD: 10A1, 11A2..." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Số Điện Thoại / Zalo</label>
+                    <input type="tel" class="form-input" placeholder="Số điện thoại cá nhân" required>
+                </div>
+                <button type="submit" class="btn submit-btn">
+                    Xác Nhận Đăng Ký <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT -->
+    <script>
+        // 1. Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        const navItems = navLinks.querySelectorAll('a');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            let icon = menuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+
+        // 2. Header Scroll & To Top Button
+        const header = document.getElementById('header');
+        const toTopBtn = document.getElementById('to-top');
+
+        window.addEventListener('scroll', () => {
+            // Header
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled');
+                toTopBtn.classList.add('show');
+            } else {
+                header.classList.remove('scrolled');
+                toTopBtn.classList.remove('show');
+            }
+
+            // Update active link
+            let current = "";
+            const sections = document.querySelectorAll("section");
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navItems.forEach(a => {
+                a.classList.remove("active");
+                if (a.getAttribute("href").includes(current)) {
+                    a.classList.add("active");
+                }
+            });
+        });
+
+        // 3. Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 120;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Init
+
+        // 4. Modal Logic
+        const modal = document.getElementById('modal');
+        const openModalBtn = document.getElementById('join-btn');
+        const closeModalBtn = document.getElementById('close-modal');
+        const regForm = document.getElementById('registration-form');
+
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        regForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Đăng ký thành công! Ban chủ nhiệm CLB sẽ liên hệ với bạn trong thời gian sớm nhất.");
+            regForm.reset();
+            modal.classList.remove('active');
+        });
+
+        // 5. Countdown Event Timer (Target: 1st June 2026)
+        const targetDate = new Date("2026-06-01T00:00:00").getTime();
+
+        const timer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById('days').innerHTML = "00";
+                document.getElementById('hours').innerHTML = "00";
+                document.getElementById('minutes').innerHTML = "00";
+                document.getElementById('seconds').innerHTML = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+        }, 1000);
+    </script>
+</body>
+
+</html>
